@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <style>
+        table {
+	    border-collapse: collapse;
+	}
+        th, td {
+	    border: solid 1px #6D6D6D;
+        padding: 10px 5px;
+	}
+    </style>
+</head>
+<body>
+
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-body ">
+                        <button id="importExcel" class="layui-btn layui-btn-normal" onclick="excelBtn()">导入Excel</button>
+                        <button class="layui-btn layui-btn-danger" onclick='location.reload()'>重置</button>
+                        <button class="layui-btn" onclick='submitExcel()'>提交</button>
+                        <input style="display: none;" type="file" id="excelFile" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+                        <table id="excelResult" class="layui-table layui-form">
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/xlsx.core.min.js"></script>
+    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script>
+        function excelBtn(){
+            $('#excelFile').click();
+        }
+        
+        //提交Excel
+        function submitExcel(){
+
+            var loading = layer.msg('正在提交，请不要做其他操作',{icon: 16,shade: 0.01},function(){
+                location.reload();
+
+            });
+            
+        }
+
+        $(function(){
+            $('#excelFile').on('change',function(e){
+                $('#importExcel').addClass('layui-btn-disabled')
+                var files = e.target.files;
+                if(files.length == 0) return;
+                var f = files[0];
+                if(!/\.xlsx$/g.test(f.name)){
+                    layer.msg('仅支持xlsx格式文件！');
+                    return;
+                }
+                readWorkbookFormLocalFile(f,function(workbook){
+                    readWorkbook(workbook);
+                });
+            });
+        })
+
+        //读取本地文件 
+        function readWorkbookFormLocalFile(file, callback){
+            var reader =  new FileReader();
+            reader.onload = function(e){
+                var data = e.target.result;
+                var workbook = XLSX.read(data,{type: 'binary'});
+                if(callback) callback(workbook);
+            }
+            reader.readAsBinaryString(file);
+        }
+
+        function readWorkbook(workbook){
+            var sheetNames = workbook.SheetNames;
+            var worksheet = workbook.Sheets[sheetNames[0]];
+            // var data = JSON.stringify(XLSX.utils.sheet_to_json(worksheet))
+            var data = XLSX.utils.sheet_to_json(worksheet)
+            var myExcel = newExcel(data);
+            console.log(myExcel)
+            var csv = XLSX.utils.sheet_to_csv(worksheet);
+            $('#excelResult').append(csv2table(csv));
+        }
+
+        //将获取的Excel数据转换为新的数组
+        function newExcel(data){
+            var myExcel = new Array;
+            var len = data.length;
+            for(var i=0; i<len; i++){
+                var vote = {};
+                vote.id = data[i].入库单号;
+                vote.state = data[i].入库状态 == "已验收" ? 1 :(data[i].入库状态 == '采购中' ? 0 : 2);
+                vote.goodsId = data[i].商品编号;
+                vote.goods = data[i].商品名称;
+                vote.goodsNum = data[i].商品数量;
+                vote.goodsTime = data[i].商品有效期;
+                vote.storageId = data[i].所属仓库;
+                vote.supId = data[i].供货商;
+                vote.user = data[i].创建人;
+                myExcel.push(vote);
+            }
+            return myExcel;
+        }
+
+
+        //将csv转换为table
+        function csv2table(csv){
+            // console.log(csv)
+            var html = '';
+            var rows = csv.split('\n');
+            rows.pop();//删除最后一行
+            rows.forEach(function(row,idx){
+                var columns = row.split(',');
+                if(idx == 0){
+                    html += '<thead><tr>';
+                    for(var i = 0; i < columns.length; i++){
+                        html += `<th>${columns[i]}</th>`
+                    }
+                    html += '</thead></tr>'
+                }else{
+                   columns.forEach(function(column,index){
+                    html += '<td>'+column+'</td>';
+                    }); 
+                }
+                html += '</tr>';
+            });
+            return html;
+        }
+    </script>
+</body>
+</html>
