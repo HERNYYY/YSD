@@ -107,21 +107,6 @@
                 elem: '#AddpurchaseDate' //指定元素
             });
 
-                //自定义验证规则
-                form.verify({
-                    nikename: function(value) {
-                        if (value.length < 5) {
-                            return '昵称至少得5个字符啊';
-                        }
-                    },
-                    pass: [/(.+){6,12}$/, '密码必须6到12位'],
-                    repass: function(value) {
-                        if ($('#L_pass').val() != $('#L_repass').val()) {
-                            return '两次密码不一致';
-                        }
-                    }
-                });
-
                 //监听提交
                 form.on('submit(add)',
                 function(data) {
@@ -141,52 +126,51 @@
             });
            
                 
-                var index = parent.layer.getFrameIndex(window.name);
-                $('#purchaseAdd').on('click',function(){
-                    var purchaseList = {
-                    purchaseId: $('#purchaseAddId').val(),
-                    purchaseState: $('#purchaseAddState').val(),
-                    purchaseName: $('#purchaseAddName').val(),
-                    goodsId: $('#goodsAddId').val(),
-                    goodsName: $('#goodsAddName').val(),
-                    goodsNum: $('#goodsAddNum').val(),
-                    purchaseDate: $('#AddpurchaseDate').val(),
-                    supId: $('#supId').val(),
-                    wareName: $('#wareName').val()
-                }
-                var html = `
-                <tr>
-                    <td>
-                        <input type="checkbox" class="" name="" lay-skin="primary" lay-filter="checkone">
-                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
-                            <i class="layui-icon layui-icon-ok">
-                            ::before
-                            </i>
-                        </div>
-                    </td>
-                    <td>${purchaseList.purchaseId}</td>
-                    <td>${purchaseList.purchaseName}</td>
-                    <td>
-                        <button class="layui-btn layui-btn-green">入库中</button>
-                    </td>
-                    <td>${purchaseList.goodsId}</td>
-                    <td>${purchaseList.goodsName}</td>
-                    <td>${purchaseList.goodsNum}</td>
-                    <td>${purchaseList.purchaseDate}</td>
-                    <td>${purchaseList.supId}</td>
-                    <td>${purchaseList.wareName}</td>
-                    <td>2017-08-17 18:22</td>
-                    <td class="td-manage">
-                        <a class="layui-btn layui-btn-normal layui-btn-xs" title="编辑 " onclick="xadmin.open('修改采购单','./purchaseEdit.html',500,600)" href="javascript:;">编辑</a>
-                        <a class="layui-btn layui-btn-danger layui-btn-xs" title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">删除</a>
-                        <!-- <a class="layui-btn layui-btn-success layui-btn-xs" title="提交" onclick="checked(this,'要验收的id')" href="javascript:;">提交</a> -->
-                    </td>
-                </tr>
-                `
-                    console.log(html)
-                    parent.$('#purchaseTbody').append(html);
-                    parent.layer.close(index);
-                })
+                // var index = parent.layer.getFrameIndex(window.name);
+                // $('#purchaseAdd').on('click',function(){
+                //     var purchaseList = {
+                //     purchaseId: $('#purchaseAddId').val(),
+                //     purchaseState: $('#purchaseAddState').val(),
+                //     purchaseName: $('#purchaseAddName').val(),
+                //     goodsId: $('#goodsAddId').val(),
+                //     goodsName: $('#goodsAddName').val(),
+                //     goodsNum: $('#goodsAddNum').val(),
+                //     purchaseDate: $('#AddpurchaseDate').val(),
+                //     supId: $('#supId').val(),
+                //     wareName: $('#wareName').val()
+                // }
+                // var html = `
+                // <tr>
+                //     <td>
+                //         <input type="checkbox" class="" name="" lay-skin="primary" lay-filter="checkone">
+                //         <div class="layui-unselect layui-form-checkbox" lay-skin="primary">
+                //             <i class="layui-icon layui-icon-ok">
+                //             </i>
+                //         </div>
+                //     </td>
+                //     <td>${purchaseList.purchaseId}</td>
+                //     <td>${purchaseList.purchaseName}</td>
+                //     <td>
+                //         <button class="layui-btn layui-btn-green">入库中</button>
+                //     </td>
+                //     <td>${purchaseList.goodsId}</td>
+                //     <td>${purchaseList.goodsName}</td>
+                //     <td>${purchaseList.goodsNum}</td>
+                //     <td>${purchaseList.purchaseDate}</td>
+                //     <td>${purchaseList.supId}</td>
+                //     <td>${purchaseList.wareName}</td>
+                //     <td>2017-08-17 18:22</td>
+                //     <td class="td-manage">
+                //         <a class="layui-btn layui-btn-normal layui-btn-xs" title="编辑 " onclick="xadmin.open('修改采购单','./purchaseEdit.html',500,600)" href="javascript:;">编辑</a>
+                //         <a class="layui-btn layui-btn-danger layui-btn-xs" title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">删除</a>
+                //         <!-- <a class="layui-btn layui-btn-success layui-btn-xs" title="提交" onclick="checked(this,'要验收的id')" href="javascript:;">提交</a> -->
+                //     </td>
+                // </tr>
+                // `
+                //     console.log(html)
+                //     parent.$('#purchaseTbody').append(html);
+                //     parent.layer.close(index);
+                // })
           
             </script>
     </body>

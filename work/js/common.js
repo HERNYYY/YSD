@@ -1,4 +1,4 @@
-layui.use(['laydate', 'form'],
+layui.use(['laydate', 'form','table'],
         function() {
             var laydate = layui.laydate;
 
@@ -24,6 +24,7 @@ layui.use(['laydate', 'form'],
             }
               form.render('checkbox');
             }); 
+            
 
             form.on('checkbox(checkone)', function(data){
                 //其中一个未选中，取消全选
@@ -48,13 +49,15 @@ layui.use(['laydate', 'form'],
                 }
             })
 
+            /*table点击冒泡*/
+            // $('tbody>tr>td').on('click',function(){
+            //     $(this).siblings('td').eq(0).children('div .layui-form-checkbox').toggleClass('layui-form-checked');
+            //     // $(this).children('td').eq(0).children('div .layui-form-checkbox').toggleClass('layui-form-checked');
+            // })
+
         });
 
-        /*点击冒泡*/
-        // $('tbody>tr>td').on('click',function(){
-        //     console.log($(this).siblings('td').children('input'))
-        //     $(this).siblings('td').children('input[type=checkbox]').prop('checked',true);
-        // })
+        
 
         /*用户-停用*/
         function member_stop(obj, id) {

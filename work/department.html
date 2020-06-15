@@ -17,7 +17,7 @@
                 <a href="">首页</a>
                 <a href="">系统管理</a>
                 <a>
-                    <cite>用户管理</cite></a>
+                    <cite>部门管理</cite></a>
             </span>
             <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" onclick="location.reload()" title="刷新">
                 <i class="layui-icon layui-icon-refresh" style="line-height:30px"></i>
@@ -30,16 +30,9 @@
                         <div class="layui-card-body ">
                             <form class="layui-form layui-col-space5">
                                 <div class="layui-input-inline layui-show-xs-block">
-                                    <select name="contrller">
-                                        <option value="">所属部门</option>
-                                        <option>部门1</option>
-                                        <option>部门2</option>
-                                        <option>部门3</option></select>
-                                </div>
+                                    <input type="text" name="username" placeholder="请输入部门编号" autocomplete="off" class="layui-input"></div>
                                 <div class="layui-input-inline layui-show-xs-block">
-                                    <input type="text" name="username" placeholder="请输入用户编号" autocomplete="off" class="layui-input"></div>
-                                <div class="layui-input-inline layui-show-xs-block">
-                                    <input type="text" name="username" placeholder="请输入用户名称" autocomplete="off" class="layui-input"></div>
+                                    <input type="text" name="username" placeholder="请输入部门名称" autocomplete="off" class="layui-input"></div>
                                 <div class="layui-input-inline layui-show-xs-block">
                                     <button class="layui-btn" lay-submit="" lay-filter="sreach" title="筛选">
                                         <i class="layui-icon">&#xe615;</i></button>
@@ -49,7 +42,7 @@
                         <div class="layui-card-header">
                             <button class="layui-btn layui-btn-danger" onclick="delAll()">
                                 <i class="layui-icon"></i>批量删除</button>
-                            <button class="layui-btn" onclick="xadmin.open('添加用户','./userAdd.html',500,450)">
+                            <button class="layui-btn" onclick="xadmin.open('添加部门','./departmentAdd.html',500,400)">
                                 <i class="layui-icon"></i>添加</button></div>
                         <div class="layui-card-body ">
                             <table class="layui-table layui-form">
@@ -58,13 +51,10 @@
                                         <th>
                                             <input type="checkbox" name="" lay-skin="primary" lay-filter="checkall">
                                         </th>
-                                        <th>用户编号</th>
-                                        <th>用户名称</th>
-                                        <th>角色</th>
-                                        <th>所属部门</th>
+                                        <th>部门编号</th>
+                                        <th>部门名称</th>
                                         <th>创建人</th>
                                         <th>创建时间</th>
-                                        <th>状态</th>
                                         <th>备注</th>
                                         <th>操作</th></tr>
                                 </thead>
@@ -74,17 +64,12 @@
                                             <input type="checkbox" class="" name="" lay-skin="primary" lay-filter="checkone">
                                         </td>
                                         <td>2017009171822298053</td>
-                                        <td>Jerry</td>
-                                        <td>管理员</td>
                                         <td>研发部</td>
                                         <td>老王</td>
                                         <td>2017-08-17 18:22</td>
-                                        <td>
-                                            <button class="layui-btn layui-btn-normal">已启用</button>
-                                        </td>
-                                        <td>11111</td>
+                                        <td>1123</td>
                                         <td class="td-manage">
-                                            <a class="layui-btn layui-btn-normal layui-btn-xs" title="编辑 " onclick="xadmin.open('修改用户','./userEdit.html',500,450)" href="javascript:;">编辑</a>
+                                            <a class="layui-btn layui-btn-normal layui-btn-xs" title="编辑 " onclick="xadmin.open('修改部门','./departmentEdit.html',500,400)" href="javascript:;">编辑</a>
                                             <a class="layui-btn layui-btn-danger layui-btn-xs" title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">删除</a>
                                         </td>
                                     </tr>
@@ -93,17 +78,12 @@
                                             <input type="checkbox" class="" name="" lay-skin="primary" lay-filter="checkone">
                                         </td>
                                         <td>2017009171822298053</td>
-                                        <td>Tom</td>
-                                        <td>管理员</td>
                                         <td>研发部</td>
                                         <td>老王</td>
                                         <td>2017-08-17 18:22</td>
-                                        <td>
-                                            <button class="layui-btn layui-btn-normal">已启用</button>
-                                        </td>
-                                        <td>11111</td>
+                                        <td>1123</td>
                                         <td class="td-manage">
-                                            <a class="layui-btn layui-btn-normal layui-btn-xs" title="编辑 " onclick="xadmin.open('修改用户','./userEdit.html',500,450)" href="javascript:;">编辑</a>
+                                            <a class="layui-btn layui-btn-normal layui-btn-xs" title="编辑 " onclick="xadmin.open('修改部门','./departmentEdit.html',500,400)" href="javascript:;">编辑</a>
                                             <a class="layui-btn layui-btn-danger layui-btn-xs" title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">删除</a>
                                         </td>
                                     </tr>
@@ -112,17 +92,12 @@
                                             <input type="checkbox" class="" name="" lay-skin="primary" lay-filter="checkone">
                                         </td>
                                         <td>2017009171822298053</td>
-                                        <td>Jenni</td>
-                                        <td>管理员</td>
                                         <td>研发部</td>
                                         <td>老王</td>
                                         <td>2017-08-17 18:22</td>
-                                        <td>
-                                            <button class="layui-btn layui-btn-danger">已禁用</button>
-                                        </td>
-                                        <td>11111</td>
+                                        <td>1123</td>
                                         <td class="td-manage">
-                                            <a class="layui-btn layui-btn-normal layui-btn-xs" title="编辑 " onclick="xadmin.open('修改用户','./userEdit.html',500,450)" href="javascript:;">编辑</a>
+                                            <a class="layui-btn layui-btn-normal layui-btn-xs" title="编辑 " onclick="xadmin.open('修改部门','./departmentEdit.html',500,400)" href="javascript:;">编辑</a>
                                             <a class="layui-btn layui-btn-danger layui-btn-xs" title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;">删除</a>
                                         </td>
                                     </tr>
